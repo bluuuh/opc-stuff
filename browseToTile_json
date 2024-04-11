@@ -1,0 +1,239 @@
+[
+    {
+        "id": "fcc67842.033988",
+        "type": "tab",
+        "label": "BROWSE TO FILE"
+    },
+    {
+        "id": "fd7d7d1f.02828",
+        "type": "OpcUa-Browser",
+        "z": "fcc67842.033988",
+        "endpoint": "58241fb2.5e084",
+        "item": "ns=1;s=al:A1:TIC100:mella/Quality\n",
+        "datatype": "opcua.DataType.Double",
+        "topic": "",
+        "name": "",
+        "x": 358,
+        "y": 207,
+        "wires": [
+            [
+                "bc233d76.43dcc"
+            ]
+        ]
+    },
+    {
+        "id": "5f40058d.a0bffc",
+        "type": "OpcUa-Client",
+        "z": "fcc67842.033988",
+        "endpoint": "58241fb2.5e084",
+        "action": "browse",
+        "deadbandvalue": "",
+        "time": "60000",
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "name": "Browse",
+        "x": 299,
+        "y": 99,
+        "wires": [
+            [
+                "d2109af5.2def68",
+                "f3ed70d33e9ac73e"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "b33ddd6a.4cc22",
+        "type": "inject",
+        "z": "fcc67842.033988",
+        "name": "Root/Objects",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "i=85",
+        "payload": "",
+        "payloadType": "string",
+        "x": 135,
+        "y": 99,
+        "wires": [
+            [
+                "5f40058d.a0bffc"
+            ]
+        ]
+    },
+    {
+        "id": "2db1779.fd24e88",
+        "type": "file",
+        "z": "fcc67842.033988",
+        "name": "Browse address file",
+        "filename": "/usr/src/node-red/address/address.txt",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 706,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "739774d3.8c688c",
+        "type": "debug",
+        "z": "fcc67842.033988",
+        "name": "Value",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 733,
+        "y": 208,
+        "wires": []
+    },
+    {
+        "id": "eadad10.f15253",
+        "type": "inject",
+        "z": "fcc67842.033988",
+        "name": "TEST",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 123,
+        "y": 206,
+        "wires": [
+            [
+                "fd7d7d1f.02828"
+            ]
+        ]
+    },
+    {
+        "id": "bc233d76.43dcc",
+        "type": "OpcUa-Client",
+        "z": "fcc67842.033988",
+        "endpoint": "58241fb2.5e084",
+        "action": "read",
+        "deadbandvalue": "",
+        "time": 10000,
+        "localfile": "",
+        "localkeyfile": "",
+        "useTransport": false,
+        "maxChunkCount": "",
+        "maxMessageSize": "",
+        "receiveBufferSize": "",
+        "sendBufferSize": "",
+        "name": "Local",
+        "x": 582,
+        "y": 207,
+        "wires": [
+            [
+                "739774d3.8c688c"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "d56a1ce1.2a95e",
+        "type": "file",
+        "z": "fcc67842.033988",
+        "name": "Clear address cache file",
+        "filename": "/usr/src/node-red/address/address.txt",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "delete",
+        "x": 692,
+        "y": 58,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c23bdff3.3dc42",
+        "type": "inject",
+        "z": "fcc67842.033988",
+        "name": "Clear cache",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "topic": "",
+        "payload": "",
+        "payloadType": "none",
+        "x": 473,
+        "y": 57,
+        "wires": [
+            [
+                "d56a1ce1.2a95e"
+            ]
+        ]
+    },
+    {
+        "id": "d2109af5.2def68",
+        "type": "debug",
+        "z": "fcc67842.033988",
+        "name": "Show",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 670,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "f3ed70d33e9ac73e",
+        "type": "change",
+        "z": "fcc67842.033988",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "topic",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 100,
+        "wires": [
+            [
+                "2db1779.fd24e88"
+            ]
+        ]
+    },
+    {
+        "id": "58241fb2.5e084",
+        "type": "OpcUa-Endpoint",
+        "endpoint": "opc.tcp://localhost:53881/",
+        "secpol": "None",
+        "secmode": "None",
+        "login": false
+    }
+]
